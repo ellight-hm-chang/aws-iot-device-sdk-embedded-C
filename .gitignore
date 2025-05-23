@@ -1,5 +1,6 @@
 # Ignore documentation output.
 **/docs/**/output/*
+project/
 
 # Ignore CMake build directory.
 build/
@@ -15,3 +16,4 @@ build/
 # Ignore certificate files
 *.pem
 *.crt
+

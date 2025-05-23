@@ -1,15 +1,15 @@
 # Creates an install target to allow users to include CSDK as a set of shared libraries
 
 set(FILEPATH_LOCATIONS
-        ${MODULES_DIR}/aws/device-defender-for-aws-iot-embedded-sdk/defenderFilePaths.cmake
-        ${MODULES_DIR}/aws/device-shadow-for-aws-iot-embedded-sdk/shadowFilePaths.cmake
-        ${MODULES_DIR}/aws/jobs-for-aws-iot-embedded-sdk/jobsFilePaths.cmake
-        ${MODULES_DIR}/aws/ota-for-aws-iot-embedded-sdk/otaFilePaths.cmake
+        #${MODULES_DIR}/aws/device-defender-for-aws-iot-embedded-sdk/defenderFilePaths.cmake
+        #${MODULES_DIR}/aws/device-shadow-for-aws-iot-embedded-sdk/shadowFilePaths.cmake
+        #${MODULES_DIR}/aws/jobs-for-aws-iot-embedded-sdk/jobsFilePaths.cmake
+        #${MODULES_DIR}/aws/ota-for-aws-iot-embedded-sdk/otaFilePaths.cmake
         ${MODULES_DIR}/standard/backoffAlgorithm/backoffAlgorithmFilePaths.cmake
         ${MODULES_DIR}/standard/coreHTTP/httpFilePaths.cmake
         ${MODULES_DIR}/standard/coreJSON/jsonFilePaths.cmake
         ${MODULES_DIR}/standard/coreMQTT/mqttFilePaths.cmake
-        ${MODULES_DIR}/standard/corePKCS11/pkcsFilePaths.cmake
+        #${MODULES_DIR}/standard/corePKCS11/pkcsFilePaths.cmake
         ${PLATFORM_DIR}/posix/posixFilePaths.cmake
     )
 
@@ -21,17 +21,17 @@ endforeach()
 # Each filePath defines a set of variables that are prefixed with the name of the
 # library and end with the type of source or include directory e.g. MQTT_SERIALIZER_SOURCES.
 set(LIBRARY_PREFIXES
-        "DEFENDER"
-        "SHADOW"
-        "JOBS"
-        "OTA"
+        #"DEFENDER"
+        #"SHADOW"
+        #"JOBS"
+        #"OTA"
         "OTA_HTTP"
         "OTA_MQTT"
         "BACKOFF_ALGORITHM"
         "HTTP"
         "JSON"
-        "MQTT"
-        "PKCS")
+        "MQTT")
+        #"PKCS")
 
 set(COREPKCS11_LOCATION "${MODULES_DIR}/standard/corePKCS11")
 set(CORE_PKCS11_3RDPARTY_LOCATION "${COREPKCS11_LOCATION}/source/dependency/3rdparty")

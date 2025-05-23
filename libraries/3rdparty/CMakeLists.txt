@@ -27,7 +27,7 @@ if(${BUILD_TESTS})
 
     target_link_libraries(cmock unity)
 endif()
-
+#[===[
 add_library(tinycbor
     "${ROOT_DIR}/libraries/3rdparty/tinycbor/src/cborpretty.c"
     "${ROOT_DIR}/libraries/3rdparty/tinycbor/src/cborpretty_stdio.c"
@@ -80,3 +80,4 @@ set_source_files_properties(
     PROPERTIES COMPILE_FLAGS
     "-Wno-pedantic"
 )
+]===]
