@@ -26,12 +26,27 @@
 
 /* POSIX sockets includes. */
 #include <errno.h>
-#include <netdb.h>
+#if WIN32
+    #include <winsock2.h>
+#define SHUT_RDWR SD_BOTH
+#define close closesocket
+    #include <windows.h>
+    #include <ws2tcpip.h>
+    #include <ws2def.h>
+#if (_WIN32_WINNT < 0x0600)
+    #define sa_family_t u_short
+#else
+    #define sa_family_t ADDRESS_FAMILY
+#endif //(_WIN32_WINNT < 0x0600)
+    #pragma comment(lib, "ws2_32.lib")
+#else
+    #include <netdb.h>
+    #include <unistd.h>
+    #include <sys/time.h>
+    #include <arpa/inet.h>
+    #include <sys/socket.h>
+#endif // WIN32
 #include <time.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
 
 #include "sockets_posix.h"
 

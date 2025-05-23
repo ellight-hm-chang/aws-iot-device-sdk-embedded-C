@@ -14,13 +14,18 @@ target_include_directories( sockets_posix
                                 ${LOGGING_INCLUDE_DIRS}
                                 ${TRANSPORT_INTERFACE_INCLUDE_DIR} )
 
+target_link_libraries( sockets_posix
+                       PUBLIC
+                           ws2_32 )
+
 # Create target for plaintext transport.
 add_library( plaintext_posix
              ${PLAINTEXT_TRANSPORT_SOURCES} )
 
 target_link_libraries( plaintext_posix
                        PUBLIC
-                           sockets_posix )
+                           sockets_posix
+                           ws2_32 )
 
 # Create target for POSIX implementation of OpenSSL.
 add_library( openssl_posix
@@ -29,15 +34,11 @@ add_library( openssl_posix
 target_link_libraries( openssl_posix
                        PUBLIC
                           sockets_posix
+                          ws2_32
                        PRIVATE
-                          # This variable is set by the built-in FindOpenSSL.cmake
-                          # and contains the path to the actual library.
-                          ${OPENSSL_LIBRARIES}
-                          # SSL uses Threads and on some platforms require
-                          # explicit linking.
+                          OpenSSL::SSL
+                          OpenSSL::Crypto
                           Threads::Threads
-                          # SSL uses Dynamic Loading and on some platforms
-                          # requires explicit linking.
                           ${CMAKE_DL_LIBS} )
 
 # Set path to corePKCS11 and it's third party libraries.

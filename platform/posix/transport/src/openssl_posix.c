@@ -26,8 +26,14 @@
 #include <string.h>
 
 /* POSIX socket includes. */
-#include <unistd.h>
-#include <poll.h>
+#if WIN32
+    #include <winsock2.h>
+    #define poll WSAPoll
+    #include <windows.h>
+#else
+    #include <unistd.h>
+    #include <poll.h>
+#endif WIN32
 
 /* Transport interface include. */
 #include "transport_interface.h"

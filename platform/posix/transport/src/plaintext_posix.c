@@ -26,8 +26,13 @@
 
 /* POSIX socket includes. */
 #include <errno.h>
-#include <sys/socket.h>
-#include <poll.h>
+#if WIN32
+    #include <winsock2.h>
+    #define poll WSAPoll
+#else
+    #include <sys/socket.h>
+    #include <poll.h>
+#endif // WIN32
 
 #include "plaintext_posix.h"
 

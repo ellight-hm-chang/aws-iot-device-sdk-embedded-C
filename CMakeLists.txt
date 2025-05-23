@@ -37,7 +37,7 @@ option( BUILD_TESTS
         OFF )
 option( BUILD_DEMOS
         "Set this to ON to build demo executables."
-        ON )
+        OFF )
 option( BUILD_CLONE_SUBMODULES
         "Set this to ON to automatically clone any required Git submodules. When OFF, submodules must be manually cloned."
         ON )
@@ -57,7 +57,7 @@ set( ALLOW_SHARED_LIBRARIES ON )
 include( CMakeDependentOption )
 CMAKE_DEPENDENT_OPTION( BUILD_SHARED_LIBS
                         "Set this to ON to build all libraries as shared libraries. When OFF, libraries build as static libraries."
-                        ON "${ALLOW_SHARED_LIBRARIES}"
+                        OFF "${ALLOW_SHARED_LIBRARIES}"
                         OFF )
 
 # Set output directories.

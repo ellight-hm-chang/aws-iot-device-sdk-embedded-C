@@ -32,6 +32,10 @@
     #include <time.h>
 #endif
 
+#ifdef WIN32
+    #include <windows.h>
+#endif // WIN32
+
 /* Platform clock include. */
 #include "clock.h"
 
@@ -45,6 +49,22 @@
 
 uint32_t Clock_GetTimeMs( void )
 {
+#if WIN32
+    static LARGE_INTEGER frequency;
+    static BOOL frequencyInitialized = FALSE;
+    LARGE_INTEGER counter;
+    int64_t timeMs;
+
+    if (!frequencyInitialized)
+    {
+        QueryPerformanceFrequency(&frequency);
+        frequencyInitialized = TRUE;
+    }
+
+    QueryPerformanceCounter(&counter);
+
+    timeMs = (counter.QuadPart * 1000LL) / frequency.QuadPart;
+#else
     int64_t timeMs;
     struct timespec timeSpec;
 
@@ -59,6 +79,7 @@ uint32_t Clock_GetTimeMs( void )
      * this function is used only for calculating the time difference.
      * Also, the possible overflows of this time value are handled by the
      * libraries. */
+#endif // WIN32
     return ( uint32_t ) timeMs;
 }
 
@@ -66,12 +87,16 @@ uint32_t Clock_GetTimeMs( void )
 
 void Clock_SleepMs( uint32_t sleepTimeMs )
 {
+#if WIN32
+    Sleep(sleepTimeMs);
+#else
     /* Convert parameter to timespec. */
     struct timespec sleepTime = { 0 };
 
-    sleepTime.tv_sec = ( ( time_t ) sleepTimeMs / ( time_t ) MILLISECONDS_PER_SECOND );
-    sleepTime.tv_nsec = ( ( int64_t ) sleepTimeMs % MILLISECONDS_PER_SECOND ) * NANOSECONDS_PER_MILLISECOND;
+    sleepTime.tv_sec = ((time_t)sleepTimeMs / (time_t)MILLISECONDS_PER_SECOND);
+    sleepTime.tv_nsec = ((int64_t)sleepTimeMs % MILLISECONDS_PER_SECOND) * NANOSECONDS_PER_MILLISECOND;
 
     /* High resolution sleep. */
-    ( void ) nanosleep( &sleepTime, NULL );
+    (void)nanosleep(&sleepTime, NULL);
+#endif // WIN32
 }
