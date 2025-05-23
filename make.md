@@ -7,9 +7,14 @@ mkdir build
 cd build
 cmake .. -DCMAKE_POLICY_VERSION_MINIMUM="3.5" -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static
 
+
 ./AwsIotDeviceSdkEmbeddedC.sln
+build Release
 
-unload Not used project 
--> unload.png
+cd build
+cmake --install .
 
-![image](unload.png)
+
+~~ unload Not used project ~~
+~~ -> unload.png ~~
+~~![image](unload.png)~~
